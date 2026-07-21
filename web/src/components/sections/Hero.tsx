@@ -38,6 +38,8 @@ export function Hero() {
               width={1400}
               height={1000}
               priority
+              // TODO: remove unoptimized once real /public images replace placeholders.
+              unoptimized
               className="h-auto w-full object-cover"
             />
           </div>

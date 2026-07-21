@@ -9,7 +9,7 @@ export type Catalogue = {
 // Placeholder images use placehold.co with the on-brand palette hex baked in.
 // Swap to local /work/<slug>/0N.webp paths when real assets arrive.
 const dark = (label: string) =>
-  `https://placehold.co/1000x1250/1A1A1A/F7F3EC?text=${encodeURIComponent(label)}`
+  `https://placehold.co/1000x1250/1A1A1A/F7F3EC.png?text=${encodeURIComponent(label)}`
 
 function placeholders(name: string, count: number): string[] {
   return Array.from({ length: count }, (_, i) =>
@@ -50,4 +50,4 @@ export const catalogues: Catalogue[] = [
 
 // Hero visual placeholder (light, on-brand). Swap for /hero.webp later.
 export const HERO_IMAGE =
-  'https://placehold.co/1400x1000/F7F3EC/8A6D3B?text=Aibrium+Hero'
+  'https://placehold.co/1400x1000/F7F3EC/8A6D3B.png?text=Aibrium+Hero'
