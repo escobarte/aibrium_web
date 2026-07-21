@@ -5,6 +5,7 @@ import { ExclusiveModels } from "@/components/sections/ExclusiveModels";
 import { Process } from "@/components/sections/Process";
 import { Pricing } from "@/components/sections/Pricing";
 import { Faq } from "@/components/sections/Faq";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Process />
       <Pricing />
       <Faq />
+      <FinalCta />
     </main>
   );
 }
