@@ -26,3 +26,9 @@ Status legend: `⏳ built, untested` · `✅ verified` · `⚠️ needs fix (rea
 - verify: npm run dev → GET / returns 200, H1 renders, text-gold class present, both next/font variable classes on <html>, tsc --noEmit clean.
 - status: ✅ verified — 2026-07-21
 
+## [Phase 1] Shell — Header, Footer, UI primitives — 2026-07-21
+- files: web/src/components/ui/Button.tsx, web/src/components/ui/SectionLabel.tsx, web/src/components/ui/Card.tsx, web/src/components/ui/CalendlyButton.tsx, web/src/components/layout/Header.tsx, web/src/components/layout/Footer.tsx, web/src/app/layout.tsx, web/src/app/page.tsx
+- notes: Button (primary/secondary, onDark, md/lg sizes, href→<a> else <button>; primary gold/ink→gold-hover, secondary outline light=ink / dark=cream per spec). SectionLabel (gold small-caps, tracking 0.22em via CSS, optional 24px gold hairline — no typed spaces). Card (base: white bg, hairline border, radius-md, shadow-card; interactive adds group + hover:border-gold for portfolio/pricing). CalendlyButton (wraps Button, onClick=openCalendlyPopup). Header (fixed slim; transparent+cream text over future dark hero, solidifies to cream bg+ink text+hairline shadow past 40px scroll, 0.3s; desktop nav Work/Process/Pricing/FAQ anchors + Book a Call; mobile hamburger slide-in menu). Footer (ink bg, cream text, 3 cols: wordmark+tagline / General+Production mailtos / nav+Book a call Calendly; bottom legal line with Privacy→/privacy). Wired Header + Footer around {children} in layout.tsx. Added id="top" to page main for wordmark anchor.
+- verify: npm run dev → GET / returns 200; wordmark "Aibrium.", "Book a Call", office@aibriumstudio.com, "Privacy Policy", and legal line all render; no dev errors; tsc --noEmit clean.
+- status: ✅ verified — 2026-07-21
+
