@@ -19,3 +19,10 @@ Status legend: `⏳ built, untested` · `✅ verified` · `⚠️ needs fix (rea
 ---
 
 <!-- entries below this line -->
+
+## [Phase 1] Scaffold + design system foundation — 2026-07-21
+- files: web/ (create-next-app scaffold), web/vercel.json, web/next.config.mjs, web/tailwind.config.ts, web/src/app/globals.css, web/src/app/layout.tsx, web/src/app/page.tsx, web/src/lib/utils.ts, web/src/lib/calendly.ts, web/src/lib/catalogues.ts, web/src/lib/motion.ts
+- notes: Scaffolded Next.js 14.2 (TS, ESLint, Tailwind, src-dir, App Router, @/* alias) into /web; installed framer-motion, lucide-react, clsx, tailwind-merge. vercel.json = nextjs framework. globals.css: palette CSS vars + prefers-reduced-motion block. tailwind.config.ts: brand colors, display/body fontFamily, maxWidth.content, card/float shadows, btn radius. next.config.mjs: placehold.co remotePattern. layout.tsx: Cormorant Garamond 500/600 + Inter 400/500 via next/font/google with display swap. lib: cn(), CALENDLY_URL + openCalendlyPopup, 4 catalogues + hero with placehold.co URLs, fadeInUp/stagger variants. Minimal page.tsx with H1 placeholder to confirm fonts + colors. No Header/Footer/sections yet (later phases).
+- verify: npm run dev → GET / returns 200, H1 renders, text-gold class present, both next/font variable classes on <html>, tsc --noEmit clean.
+- status: ✅ verified — 2026-07-21
+
