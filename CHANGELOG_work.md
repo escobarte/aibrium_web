@@ -32,3 +32,9 @@ Status legend: `⏳ built, untested` · `✅ verified` · `⚠️ needs fix (rea
 - verify: npm run dev → GET / returns 200; wordmark "Aibrium.", "Book a Call", office@aibriumstudio.com, "Privacy Policy", and legal line all render; no dev errors; tsc --noEmit clean.
 - status: ✅ verified — 2026-07-21
 
+## [Phase 2] Hero (dark) + Problem→Fix — 2026-07-21
+- files: web/src/components/sections/Hero.tsx, web/src/components/sections/ProblemFix.tsx, web/src/app/page.tsx
+- notes: Hero — ink bg with warm radial (#242018→#1A1A1A) + blurred gold bloom rgba(138,109,59,0.28) behind the hero image; split layout (text left / image right on md+, image above text on mobile). Single page <h1> "Your brand's own models. New visuals every week." (Cormorant 600, cream), gold SectionLabel, #B9B2A6 sub, primary CalendlyButton "Book a 15-min Call" + secondary onDark "See the Work" → #work. Two floating info-cards (shadow-float, true facts: DELIVERY / YOUR MODEL with A avatar dot) shown md+ only, hidden on mobile. On-load stagger fade-up (initial→animate) on label/H1/sub/buttons. Hero carries id="top" for the header wordmark anchor. ProblemFix — cream section, clamp vertical padding, gold "Why We Exist" label + hairline, H2 "Great visuals shouldn't require a production.", body, three fact cards (Weekly delivery / Models exclusive / 3 ad-ready formats) via Card; whileInView stagger fade-up. page.tsx now renders <Hero/> + <ProblemFix/> (removed placeholder H1).
+- verify: npm run dev → GET / 200; hero H1, "Book a 15-min Call", "See the Work", both floating cards ("Finished visuals every Friday" / "never reused"), "Why We Exist", H2, all three fact cards, and placehold.co hero image all render; exactly one <h1>; tsc --noEmit clean; no dev errors.
+- status: ✅ verified — 2026-07-21
+
