@@ -35,9 +35,7 @@ export function Lightbox({
   // Fire Plausible on open (once per catalogue open).
   useEffect(() => {
     if (!open || !catalogue) return
-    // @ts-expect-error Plausible is injected by the analytics script
     if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
-      // @ts-expect-error Plausible is injected by the analytics script
       window.plausible('Lightbox Open', { props: { catalogue: catalogue.name } })
     }
   }, [open, catalogue])

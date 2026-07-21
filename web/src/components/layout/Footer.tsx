@@ -1,6 +1,7 @@
 'use client'
 
 import { openCalendlyPopup } from '@/lib/calendly'
+import { trackMailtoClick } from '@/lib/analytics'
 
 const NAV = [
   { label: 'Work', href: '#work' },
@@ -32,6 +33,7 @@ export function Footer() {
               </p>
               <a
                 href="mailto:hello@aibrium.com"
+                onClick={trackMailtoClick}
                 className="transition-colors hover:text-gold"
               >
                 hello@aibrium.com
@@ -43,6 +45,7 @@ export function Footer() {
               </p>
               <a
                 href="mailto:office@aibriumstudio.com"
+                onClick={trackMailtoClick}
                 className="transition-colors hover:text-gold"
               >
                 office@aibriumstudio.com

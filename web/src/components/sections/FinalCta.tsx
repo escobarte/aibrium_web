@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { fadeInUp, stagger } from '@/lib/motion'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { CalendlyInline } from '@/components/ui/CalendlyInline'
+import { trackMailtoClick } from '@/lib/analytics'
 
 export function FinalCta() {
   return (
@@ -47,6 +48,7 @@ export function FinalCta() {
           Prefer email?{' '}
           <a
             href="mailto:hello@aibrium.com"
+            onClick={trackMailtoClick}
             className="font-medium text-ink underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
           >
             hello@aibrium.com
