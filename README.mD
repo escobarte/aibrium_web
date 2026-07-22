@@ -1,5 +1,8 @@
 # Aibrium Studio — website
 
+## How to add images and Calendly link
+Is described in instructions.md
+
 Single-page marketing site + `/privacy` for **Aibrium Studio** (exclusive on-model visuals for fashion & lifestyle brands). Job of the site: validate a cold-email prospect in ~10 seconds and route them to a Calendly call or a sample request.
 
 ---
