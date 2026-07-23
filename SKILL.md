@@ -334,7 +334,7 @@ All copy in the blocks below is **final — paste as written**. Text in `[bracke
 - **Floating cards over the image** (this is the reference's composition, translated — **state true facts only, no fake counters**). Two small cards, light (cream/white) with `shadow-float`:
   - Card A — gold micro-label `DELIVERY` + `Finished visuals every Friday`.
   - Card B — gold micro-label `YOUR MODEL` + `Exclusive to your brand — never reused` + a small initial/avatar dot.
-- **Mobile:** image **above** text; floating cards collapse to a simple caption row or hide (keep it calm).
+- **Mobile / tablet (below `lg`):** *(approved deviation — 2026-07-23)* the entire hero **visual block is hidden** (image + both floating cards) below `lg`; the two-column split happens at `lg`, not `md`. The two facts from the floating cards must **not** disappear — render them as a compact block **under the CTA buttons**, using existing tokens (gold small-caps `SectionLabel` label + body-text value): `DELIVERY → Finished visuals every Friday` and `YOUR MODEL → Exclusive to your brand — never reused`. The hidden visual must not cause mobile to download the hero image (no `priority`; `display:none` + lazy). The visual block is placed **after** the text in source order, so when a real image later replaces the placeholder it can be brought back on mobile **below** the text by changing `hidden lg:block` → `block` — no markup rewrite. Desktop (`lg+`) is unchanged: text left, visual right, floating cards over the image.
 - **On-load animation:** H1 + sub + buttons stagger fade-up (0.08s stagger). Restrained. Nothing else on the hero animates on load.
 
 ### BLOCK 3 — The Problem → The Fix — `ProblemFix.tsx`

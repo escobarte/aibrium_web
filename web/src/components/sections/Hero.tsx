@@ -19,61 +19,9 @@ export function Hero() {
           'radial-gradient(60% 80% at 75% 40%, #242018 0%, #1A1A1A 70%)',
       }}
     >
-      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-12 px-6 pb-20 pt-32 md:min-h-[88vh] md:grid-cols-2 md:gap-16 md:py-32">
-        {/* Visual — first in DOM so it sits above text on mobile */}
-        <div className="relative order-1 md:order-2">
-          {/* Soft gold bloom behind the image */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-8 -z-0 blur-3xl"
-            style={{
-              background:
-                'radial-gradient(closest-side, rgba(138,109,59,0.28), transparent 70%)',
-            }}
-          />
-          <div className="relative z-10 overflow-hidden rounded-xl">
-            <Image
-              src={HERO_IMAGE}
-              alt="On-model campaign visual produced by Aibrium Studio"
-              width={1400}
-              height={1000}
-              priority
-              // TODO: remove unoptimized once real /public images replace placeholders.
-              unoptimized
-              className="h-auto w-full object-cover"
-            />
-          </div>
-
-          {/* Floating info-cards (true facts only) — hidden on mobile */}
-          <div className="pointer-events-none absolute inset-0 z-20 hidden md:block">
-            <div className="absolute -left-6 top-10 rounded-md bg-cream/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
-              <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-                Delivery
-              </p>
-              <p className="mt-1 font-display text-[18px] leading-tight">
-                Finished visuals every Friday
-              </p>
-            </div>
-
-            <div className="absolute -right-4 bottom-10 flex items-center gap-3 rounded-md bg-white/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
-              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-ink font-display text-[15px] text-cream">
-                A
-              </span>
-              <div>
-                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-                  Your model
-                </p>
-                <p className="mt-1 font-display text-[16px] leading-tight">
-                  Exclusive to your brand — never reused
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Text */}
+      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-12 px-6 pb-20 pt-32 lg:min-h-[88vh] lg:grid-cols-2 lg:gap-16 lg:py-32">
+        {/* Text — first in DOM: on mobile it leads; on lg it fills the left column */}
         <motion.div
-          className="order-2 md:order-1"
           initial="hidden"
           animate="visible"
           variants={stagger}
@@ -108,7 +56,89 @@ export function Hero() {
               See the Work
             </Button>
           </motion.div>
+
+          {/*
+            Mobile/tablet facts — the two facts that live in the floating cards
+            on desktop. Rendered below the CTAs on screens < lg (where the visual
+            block is hidden) so the facts never disappear. lg:hidden because the
+            floating cards carry them on desktop.
+          */}
+          <motion.div
+            variants={fadeInUp}
+            className="mt-10 flex flex-col gap-5 lg:hidden"
+          >
+            <div>
+              <SectionLabel>Delivery</SectionLabel>
+              <p className="mt-1.5 font-body text-[17px] leading-snug text-cream">
+                Finished visuals every Friday
+              </p>
+            </div>
+            <div>
+              <SectionLabel>Your Model</SectionLabel>
+              <p className="mt-1.5 font-body text-[17px] leading-snug text-cream">
+                Exclusive to your brand — never reused
+              </p>
+            </div>
+          </motion.div>
         </motion.div>
+
+        {/*
+          Visual — second in DOM. Hidden below lg (image + both floating cards),
+          so mobile never downloads the hero image (display:none + no `priority`
+          keeps it from being fetched/preloaded). To later re-enable it on mobile
+          BELOW the text, change `hidden lg:block` → `block` here — no markup
+          rewrite needed, because it already follows the text in source order.
+        */}
+        <div className="relative hidden lg:block">
+          {/* Soft gold bloom behind the image */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-8 -z-0 blur-3xl"
+            style={{
+              background:
+                'radial-gradient(closest-side, rgba(138,109,59,0.28), transparent 70%)',
+            }}
+          />
+          <div className="relative z-10 overflow-hidden rounded-xl">
+            <Image
+              src={HERO_IMAGE}
+              alt="On-model campaign visual produced by Aibrium Studio"
+              width={1400}
+              height={1000}
+              // No `priority`: the visual is display:none below lg, so lazy
+              // loading keeps mobile from fetching the hero image needlessly.
+              // TODO: remove unoptimized once real /public images replace placeholders.
+              unoptimized
+              className="h-auto w-full object-cover"
+            />
+          </div>
+
+          {/* Floating info-cards (true facts only) — desktop only via parent gate */}
+          <div className="pointer-events-none absolute inset-0 z-20 block">
+            <div className="absolute -left-6 top-10 rounded-md bg-cream/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
+              <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+                Delivery
+              </p>
+              <p className="mt-1 font-display text-[18px] leading-tight">
+                Finished visuals every Friday
+              </p>
+            </div>
+
+            <div className="absolute -right-4 bottom-10 flex items-center gap-3 rounded-md bg-white/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-ink font-display text-[15px] text-cream">
+                A
+              </span>
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+                  Your model
+                </p>
+                <p className="mt-1 font-display text-[16px] leading-tight">
+                  Exclusive to your brand — never reused
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
