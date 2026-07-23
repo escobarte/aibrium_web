@@ -2,9 +2,19 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type PanInfo,
+} from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import type { Catalogue } from '@/lib/catalogues'
+
+// Swipe thresholds: act on a decisive drag (distance) or a quick flick
+// (velocity); anything smaller snaps back so an accidental nudge never flips.
+const SWIPE_DISTANCE = 80 // px
+const SWIPE_VELOCITY = 500 // px/s
 
 type LightboxProps = {
   catalogue: Catalogue | null
@@ -21,6 +31,7 @@ export function Lightbox({
 }: LightboxProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const open = catalogue !== null
+  const reduceMotion = useReducedMotion()
 
   const goPrev = useCallback(() => {
     if (!catalogue) return
@@ -31,6 +42,28 @@ export function Lightbox({
     if (!catalogue) return
     onIndexChange((index + 1) % catalogue.images.length)
   }, [catalogue, index, onIndexChange])
+
+  // Touch/pointer swipe. dragDirectionLock keeps a gesture on one axis, so the
+  // horizontal (navigate) and vertical (close) intents never fight; we still
+  // compare offsets to resolve the dominant axis before acting.
+  const handleDragEnd = useCallback(
+    (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const { offset, velocity } = info
+      const horizontal = Math.abs(offset.x) > Math.abs(offset.y)
+
+      if (horizontal) {
+        if (offset.x <= -SWIPE_DISTANCE || velocity.x <= -SWIPE_VELOCITY) {
+          goNext() // swipe left → next
+        } else if (offset.x >= SWIPE_DISTANCE || velocity.x >= SWIPE_VELOCITY) {
+          goPrev() // swipe right → previous
+        }
+        // else: below threshold → dragSnapToOrigin returns it
+      } else if (offset.y >= SWIPE_DISTANCE || velocity.y >= SWIPE_VELOCITY) {
+        onClose() // swipe down → close (swipe up just snaps back)
+      }
+    },
+    [goNext, goPrev, onClose],
+  )
 
   // Fire Plausible on open (once per catalogue open).
   useEffect(() => {
@@ -100,10 +133,21 @@ export function Lightbox({
             <ChevronLeft strokeWidth={1.5} className="h-9 w-9" />
           </button>
 
-          {/* Image */}
-          <div
+          {/* Image — draggable for touch swipe (left/right navigate, down closes) */}
+          <motion.div
             className="relative max-h-[85vh] w-auto max-w-[90vw]"
             onClick={(e) => e.stopPropagation()}
+            drag
+            dragDirectionLock
+            dragSnapToOrigin
+            dragElastic={0.18}
+            // reduced motion: no snap-back animation, gesture still works
+            dragMomentum={!reduceMotion}
+            transition={reduceMotion ? { duration: 0 } : undefined}
+            onDragEnd={handleDragEnd}
+            // touch-action none stops the browser from scrolling the page
+            // behind the lightbox while a swipe is in progress
+            style={{ touchAction: 'none' }}
           >
             <Image
               key={catalogue.images[index]}
@@ -111,6 +155,7 @@ export function Lightbox({
               alt={`${catalogue.name} — visual ${index + 1}`}
               width={1000}
               height={1250}
+              draggable={false}
               // TODO: remove unoptimized once real /public images replace placeholders.
               unoptimized
               className="max-h-[85vh] w-auto object-contain"
@@ -118,7 +163,7 @@ export function Lightbox({
             <p className="mt-3 text-center font-body text-[13px] text-[#B9B2A6]">
               {catalogue.name} · {index + 1} / {catalogue.images.length}
             </p>
-          </div>
+          </motion.div>
 
           {/* Next */}
           <button
