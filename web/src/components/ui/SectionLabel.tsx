@@ -18,7 +18,7 @@ export function SectionLabel({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-3 font-body text-[13px] font-medium uppercase tracking-[0.22em] text-gold',
+        'inline-flex items-center gap-3 font-label text-[13px] font-medium uppercase tracking-[0.22em] text-gold',
         className,
       )}
     >

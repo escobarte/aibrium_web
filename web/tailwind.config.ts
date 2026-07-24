@@ -16,7 +16,11 @@ const config: Config = {
         grey: "#666666",
       },
       fontFamily: {
-        display: ["var(--font-cormorant)", "Playfair Display", "serif"],
+        // Display face — headings, card titles, wordmark.
+        display: ["var(--font-eb-garamond)", "Georgia", "serif"],
+        // Label face — small uppercase letter-spaced micro-copy + nav items.
+        label: ["var(--font-montserrat)", "system-ui", "sans-serif"],
+        // Body face — paragraphs, descriptions, captions.
         body: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       maxWidth: {

@@ -115,7 +115,7 @@ export function Pricing() {
               )}
             >
               {tier.popular && (
-                <span className="absolute -top-3 left-8 rounded-btn bg-gold px-3 py-1 font-body text-[11px] font-medium uppercase tracking-[0.08em] text-ink">
+                <span className="absolute -top-3 left-8 rounded-btn bg-gold px-3 py-1 font-label text-[11px] font-medium uppercase tracking-[0.08em] text-ink">
                   Most Popular
                 </span>
               )}

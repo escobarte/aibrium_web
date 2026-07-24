@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { EB_Garamond, Montserrat, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -7,13 +7,24 @@ import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/MotionProvider";
 import { CalendlyEvents } from "@/components/CalendlyEvents";
 
-const cormorant = Cormorant_Garamond({
+// Display face (H1, H2, card titles, wordmark) — EB Garamond.
+const ebGaramond = EB_Garamond({
   subsets: ["latin"],
   weight: ["500", "600"],
-  variable: "--font-cormorant",
+  variable: "--font-eb-garamond",
   display: "swap",
 });
 
+// Label face — Montserrat, used only for small uppercase letter-spaced
+// micro-copy: SectionLabel, button labels, nav items, lightbox counter.
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+// Body face — Inter, all paragraphs / descriptions / captions.
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500"],
@@ -45,7 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${ebGaramond.variable} ${montserrat.variable} ${inter.variable}`}
+    >
       <head>
         <link rel="preconnect" href="https://assets.calendly.com" />
         <link

@@ -13,7 +13,7 @@ type ButtonProps = {
 }
 
 const base =
-  'inline-flex items-center justify-center rounded-btn font-body font-medium uppercase tracking-[0.08em] transition-colors duration-300 cursor-pointer'
+  'inline-flex items-center justify-center rounded-btn font-label font-medium uppercase tracking-[0.08em] transition-colors duration-300 cursor-pointer'
 
 const sizes = {
   md: 'text-[13px] px-[26px] py-[14px]',

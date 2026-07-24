@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   return (
     <main className="bg-cream [padding-block:clamp(112px,14vw,168px)]">
       <article className="mx-auto max-w-[760px] px-6">
-        <p className="font-body text-[13px] font-medium uppercase tracking-[0.22em] text-gold">
+        <p className="font-label text-[13px] font-medium uppercase tracking-[0.22em] text-gold">
           Legal
         </p>
         <h1 className="mt-4 font-display font-semibold text-ink [font-size:clamp(34px,5vw,56px)] [line-height:1.1]">

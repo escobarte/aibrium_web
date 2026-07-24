@@ -228,7 +228,7 @@ export function Lightbox({
 
           {/* Counter — small letter-spaced uppercase gold on the dark backdrop */}
           <p
-            className="absolute inset-x-0 z-20 text-center font-body text-[12px] font-medium uppercase tracking-[0.22em] text-gold"
+            className="absolute inset-x-0 z-20 text-center font-label text-[12px] font-medium uppercase tracking-[0.22em] text-gold"
             style={{ bottom: 'calc(env(safe-area-inset-bottom) + 1rem)' }}
           >
             {String(index + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}

@@ -50,7 +50,7 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="font-body text-[14px] transition-colors hover:text-gold"
+              className="font-label text-[14px] transition-colors hover:text-gold"
             >
               {item.label}
             </a>
@@ -82,7 +82,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setMenuOpen(false)}
-              className="py-3 font-body text-[16px] transition-colors hover:text-gold"
+              className="py-3 font-label text-[16px] transition-colors hover:text-gold"
             >
               {item.label}
             </a>

@@ -32,7 +32,7 @@ export function Hero() {
 
           <motion.h1
             variants={fadeInUp}
-            className="mt-6 font-display font-semibold text-cream [font-size:clamp(44px,6vw,84px)] [line-height:1.05]"
+            className="mt-6 font-display font-semibold tracking-[-0.01em] text-cream [font-size:clamp(44px,6vw,84px)] [line-height:1.05]"
           >
             Your brand&apos;s own models. New visuals every week.
           </motion.h1>
@@ -116,7 +116,7 @@ export function Hero() {
           {/* Floating info-cards (true facts only) — desktop only via parent gate */}
           <div className="pointer-events-none absolute inset-0 z-20 block">
             <div className="absolute -left-6 top-10 rounded-md bg-cream/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
-              <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+              <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
                 Delivery
               </p>
               <p className="mt-1 font-display text-[18px] leading-tight">
@@ -129,7 +129,7 @@ export function Hero() {
                 A
               </span>
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+                <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
                   Your model
                 </p>
                 <p className="mt-1 font-display text-[16px] leading-tight">

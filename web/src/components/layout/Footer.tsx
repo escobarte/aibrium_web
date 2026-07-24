@@ -28,7 +28,7 @@ export function Footer() {
           {/* Column 2 — contact */}
           <div className="flex flex-col gap-4 text-[14px]">
             <div>
-              <p className="mb-1 text-[12px] uppercase tracking-[0.22em] text-gold">
+              <p className="mb-1 font-label text-[12px] uppercase tracking-[0.22em] text-gold">
                 General
               </p>
               <a
@@ -40,7 +40,7 @@ export function Footer() {
               </a>
             </div>
             <div>
-              <p className="mb-1 text-[12px] uppercase tracking-[0.22em] text-gold">
+              <p className="mb-1 font-label text-[12px] uppercase tracking-[0.22em] text-gold">
                 Production
               </p>
               <a
@@ -54,7 +54,7 @@ export function Footer() {
           </div>
 
           {/* Column 3 — nav */}
-          <nav className="flex flex-col gap-3 text-[14px]">
+          <nav className="flex flex-col gap-3 font-label text-[14px]">
             {NAV.map((item) => (
               <a
                 key={item.href}

@@ -172,20 +172,26 @@ theme: {
 
 ### Typography scale
 
-- **Display face:** Cormorant Garamond, weight 500–600. Use for H1, H2, card titles, wordmark. Generous, calm.
-- **Body face:** Inter, weight 400 (500 for emphasis/buttons/labels). 17–18px body, line-height 1.6.
+**Three-role type system** *(updated 2026-07-24 — brand identity alignment)*. Each role maps to a Tailwind token; never scatter raw font names across components.
+
+- **Display face (`font-display`):** **EB Garamond**, weight 500–600. Use for H1, H2, card titles, wordmark. Generous, calm. *(Replaced Cormorant Garamond — same weights, same type scale; a face swap, not a redesign. EB Garamond runs slightly wider, so the hero H1 carries `letter-spacing: -0.01em`.)*
+- **Label face (`font-label`):** **Montserrat**, weights 500 & 600 **only**. Geometric sans, used **exclusively** for small uppercase letter-spaced micro-copy: `SectionLabel`, button labels, nav items (header + footer), the lightbox counter, the pricing "Most Popular" tag, and the hero floating-card micro-labels. **Never** in body text.
+- **Body face (`font-body`):** **Inter**, weight 400 (500 for emphasis). 17–18px body, line-height 1.6. All paragraphs, descriptions, captions.
+
+All three load via `next/font/google` in `layout.tsx` (`display: 'swap'`, latin subset), exposed as CSS variables `--font-eb-garamond` / `--font-montserrat` / `--font-inter`.
 
 | Element | Face / weight | Size | Notes |
 |---|---|---|---|
-| Hero H1 | Cormorant 600 | `clamp(44px, 6vw, 84px)` | line-height 1.05, the only `<h1>` on the page |
-| Section H2 | Cormorant 600 | `clamp(30px, 4vw, 52px)` | line-height 1.1 |
-| Gold small-caps label | Inter 500 | 12–13px | `text-transform: uppercase`, `letter-spacing: 0.22em`, color gold. Sits above every section H2. |
-| Card / step title | Cormorant 600 | 22–26px | |
-| Body | Inter 400 | 17–18px | line-height 1.6, max ~68ch |
-| Caption / meta | Inter 400 | 14px | color grey |
-| Button label | Inter 500 | 13–14px | uppercase, `letter-spacing: 0.08em` |
+| Hero H1 | EB Garamond 600 (`font-display`) | `clamp(44px, 6vw, 84px)` | line-height 1.05, `letter-spacing: -0.01em`, the only `<h1>` on the page |
+| Section H2 | EB Garamond 600 (`font-display`) | `clamp(30px, 4vw, 52px)` | line-height 1.1 |
+| Gold small-caps label | Montserrat 500 (`font-label`) | 12–13px | `text-transform: uppercase`, `letter-spacing: 0.22em`, color gold. Sits above every section H2. |
+| Card / step title | EB Garamond 600 (`font-display`) | 22–26px | |
+| Body | Inter 400 (`font-body`) | 17–18px | line-height 1.6, max ~68ch |
+| Caption / meta | Inter 400 (`font-body`) | 14px | color grey |
+| Button label | Montserrat 500 (`font-label`) | 13–14px | uppercase, `letter-spacing: 0.08em` |
+| Nav item | Montserrat 500 (`font-label`) | 14–16px | header + footer navigation |
 
-> The **gold small-caps label** (letter-spaced, e.g. `T H E  P R O C E S S`) is the signature detail from the brand documents — it appears above **every** section title. Implement letter-spacing by CSS tracking, not by typing spaces between letters.
+> The **gold small-caps label** (letter-spaced, e.g. `T H E  P R O C E S S`) is the signature detail from the brand documents — it appears above **every** section title, now set in the Montserrat label face. Implement letter-spacing by CSS tracking, not by typing spaces between letters.
 
 ### Buttons — two variants only (`Button.tsx`)
 
@@ -466,10 +472,10 @@ See next section.
 
 ## Calendly integration
 
-**Set the URL in exactly one place** — `src/lib/calendly.ts`:
+**Set the URL in exactly one place** — `src/lib/calendly.ts`. *(Updated 2026-07-24: the real URL now lives as a **literal** in this file so the site works with zero configuration on any host. `NEXT_PUBLIC_CALENDLY_URL` is an **optional override** — read if present, otherwise the literal is used. A missing env var must never break the build or produce an undefined URL. Do not reintroduce a placeholder or a required env var.)*
 ```ts
 export const CALENDLY_URL =
-  process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/PLACEHOLDER/15min'
+  process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/hello-aibrium'
 
 // popup helper (script is loaded in layout.tsx via next/script)
 export function openCalendlyPopup() {
@@ -484,7 +490,7 @@ export function openCalendlyPopup() {
 ```
 - **Popup:** every `BOOK A CALL`, `BOOK A 15-MIN CALL`, and `START WITH THE PILOT` button calls `openCalendlyPopup()`.
 - **Inline (Block 9):** render `<div className="calendly-inline-widget" data-url={CALENDLY_URL} style={{ minWidth: 320, height: 680 }} />`. The widget script auto-initializes inline widgets.
-- Put the real URL in `.env.local` as `NEXT_PUBLIC_CALENDLY_URL=...` (and in Vercel env vars). Never blocks render — script is `lazyOnload`.
+- The real URL is committed as the literal default in `src/lib/calendly.ts` — no `.env.local` needed for the site to work. To point at a different Calendly (e.g. staging), optionally set `NEXT_PUBLIC_CALENDLY_URL` in the environment (or Vercel env vars) to override. Never blocks render — script is `lazyOnload`.
 - **No contact form anywhere.** Calendly + mailto only.
 
 ---
