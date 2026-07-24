@@ -5,13 +5,16 @@ import { motion } from 'framer-motion'
 import { fadeInUp, stagger } from '@/lib/motion'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 
-// Casting-board candidate thumbnails (placeholders — on-brand palette).
-// TODO: swap for real candidate visuals when assets arrive.
-const CANDIDATES = Array.from(
-  { length: 4 },
-  (_, i) =>
-    `https://placehold.co/600x800/1A1A1A/F7F3EC.png?text=Candidate+${i + 1}`,
-)
+// Casting-board candidate thumbnails — real client photography (below the fold).
+// All four share the same intrinsic dimensions, so one width/height pair applies.
+const CANDIDATES = [
+  '/casting/01.jpg',
+  '/casting/02.jpg',
+  '/casting/03.jpg',
+  '/casting/04.jpg',
+]
+const CASTING_W = 1031
+const CASTING_H = 1280
 
 const STEPS = [
   {
@@ -47,11 +50,11 @@ export function ExclusiveModels() {
             <div key={src} className="overflow-hidden rounded">
               <Image
                 src={src}
-                alt={`Casting candidate ${i + 1}`}
-                width={600}
-                height={800}
-                // TODO: remove unoptimized once real /public images replace placeholders.
-                unoptimized
+                alt={`Casting candidate ${i + 1} — exclusive digital model`}
+                width={CASTING_W}
+                height={CASTING_H}
+                // Below the fold: lazy, never priority.
+                loading="lazy"
                 className="h-auto w-full object-cover"
               />
             </div>

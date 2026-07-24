@@ -122,3 +122,16 @@ Status legend: `⏳ built, untested` · `✅ verified` · `⚠️ needs fix (rea
 - TASK3 copy 15→30 min: Hero CTA "Book a 15-min Call"→"Book a 30-min Call"; FinalCta H2 "Fifteen minutes."→"Thirty minutes."; SKILL.md 3 spots (Block2 CTA, Block9 H2, Calendly popup list). Full grep (15[ -]*min|15-minute|fifteen) now returns 0 in src+SKILL; no FAQ/metadata/alt/pricing mentions existed. No other copy changed.
 - verify: tsc --noEmit clean; npm run dev → GET / 200, one <h1>; HTML shows "Book a 30-min Call" + "Thirty minutes. Bring a product.", zero stale 15-min/fifteen copy; catalogue lightbox triggers render; no compile errors. NOT verifiable headlessly (need a real device/browser): the mobile scroll-position restore on lightbox close (instant, no jump), desktop no-sideways-shift on open, hardware Back closing lightbox, and mobile BOOK A CALL now opening + staying open through the menu→popup handoff. These are the interaction fixes — code/types verified, on-device confirmation still recommended.
 - status: ✅ verified — 2026-07-24
+
+## [Assets] ExclusiveModels casting board — real photos replace placeholders — 2026-07-24
+- files: src/components/sections/ExclusiveModels.tsx, CHANGELOG_work.md
+- req1: placeholders were HARDCODED in the component (local CANDIDATES const, Array.from → placehold.co URLs) — NOT a src/lib data file. Put the four real paths in that same local array (no new data structure). Added CASTING_W/H constants.
+- req2/3: next/image with explicit width=1031 height=1280 (real intrinsic dims, no CLS). Grid/spacing/radius/card styling unchanged; tile stays overflow-hidden rounded, image stays h-auto w-full object-cover.
+- req4: no separate "Candidate N" text element existed — the label was baked into the placeholder image + alt; removing the URLs removes it.
+- req5: alt = "Casting candidate {n} — exclusive digital model" (consistent with Block 5 copy).
+- req6: loading="lazy", no priority (below the fold).
+- req7: all four files identical — 1031×1280 portrait, ratio 0.8055 (45–102 KB). No aspect-ratio differences → no silent crop, nothing to decide.
+- req8: placehold.co now referenced ONLY by catalogues.ts HERO_IMAGE (hero) + next.config.mjs remotePattern. The hero is the sole remaining user → remotePattern KEPT (not removed).
+- note: removed `unoptimized` here per this file's own TODO (real images arrived) → next/image optimizes these small below-fold thumbnails. Differs from the Work portfolio images, which kept unoptimized because that task had an explicit no-recompress rule; this task had none. Flag for alignment if desired.
+- verify: tsc --noEmit clean; npm run dev → GET / 200, one <h1>. All 4 casting imgs render via next/image (local /casting/0N.jpg through the optimizer), each with loading="lazy", width="1031" height="1280", and alt="Casting candidate N — exclusive digital model"; no "Candidate+" placeholder text; no casting preload link (not priority); the 4 files serve 200 image/jpeg directly; "Cast once. Yours forever." section intact; no compile errors. placehold.co now only in HERO_IMAGE + remotePattern (hero = sole user; remotePattern kept).
+- status: ✅ verified — 2026-07-24
