@@ -36,4 +36,14 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Hide the scrollbar visually while keeping the element scrollable
+     (used by the lightbox scroll-snap track). */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
 }
