@@ -150,13 +150,14 @@ export function Lightbox({
             style={{ touchAction: 'none' }}
           >
             <Image
-              key={catalogue.images[index]}
-              src={catalogue.images[index]}
-              alt={`${catalogue.name} — visual ${index + 1}`}
-              width={1000}
-              height={1250}
+              key={catalogue.images[index].src}
+              src={catalogue.images[index].src}
+              alt={catalogue.images[index].alt}
+              width={catalogue.images[index].width}
+              height={catalogue.images[index].height}
               draggable={false}
-              // TODO: remove unoptimized once real /public images replace placeholders.
+              // Real client photography — served as-is (no resize/recompress/
+              // convert). width/height above prevent layout shift.
               unoptimized
               className="max-h-[85vh] w-auto object-contain"
             />

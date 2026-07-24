@@ -52,11 +52,12 @@ export function Work() {
               <Card interactive className="overflow-hidden">
                 <div className="overflow-hidden">
                   <Image
-                    src={catalogue.cover}
-                    alt={`${catalogue.name} — ${catalogue.category}`}
-                    width={1000}
-                    height={1250}
-                    // TODO: remove unoptimized once real /public images replace placeholders.
+                    src={catalogue.cover.src}
+                    alt={catalogue.cover.alt}
+                    width={catalogue.cover.width}
+                    height={catalogue.cover.height}
+                    // Real client photography — served as-is (no resize/recompress/
+                    // convert). width/height above prevent layout shift.
                     unoptimized
                     className="h-auto w-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
                   />
