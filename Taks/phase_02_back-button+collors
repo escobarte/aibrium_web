@@ -1,0 +1,92 @@
+Read SKILL.md sections: "Working rules", "Design system",
+"Calendly integration", Block 4 (Work / portfolio),
+Block 1 (Header).
+
+Three tasks.
+
+=== TASK 1 — brand gold update ===
+The official brand gold is #C8A96A (from the client's
+brand identity). The site currently uses #8A6D3B.
+
+1. Set the `gold` token to #C8A96A in tailwind.config.ts,
+   globals.css CSS variables, and anywhere else the old
+   value is defined. Grep the whole codebase for 8A6D3B and
+   6F5730 — no stray literals may remain.
+2. Recalculate `gold-hover` as a slightly darker shade of
+   the NEW gold, keeping the same relationship the old pair
+   had. Do not invent a different hue.
+3. #C8A96A fails contrast on the cream background, so add a
+   second token — name it `gold-deep` — set to #8A6D3B (the
+   current value), and use it ONLY for gold text and gold
+   hairlines that sit on cream or white backgrounds:
+   SectionLabel on light sections, gold captions on light,
+   the featured pricing card border.
+4. On ink/dark backgrounds (hero, footer, lightbox) use the
+   new #C8A96A everywhere — labels, counters, accents. The
+   logo wordmark uses #C8A96A on both.
+5. Buttons: the gold fill becomes #C8A96A. Check the button
+   label colour against the new fill — if the label is
+   currently cream/white it will now be unreadable, so
+   switch it to ink. Report what you changed.
+6. Do not change any other colour, spacing or layout.
+
+=== TASK 2 — Android back button closes the lightbox ===
+On mobile, pressing the hardware/gesture Back button while
+the lightbox is open exits the site instead of closing it.
+
+7. In src/components/ui/Lightbox.tsx, push a history entry
+   when the lightbox opens (history.pushState with a marker
+   state — do not change the visible URL or add a hash).
+8. Listen for popstate: when it fires while open, close the
+   lightbox and do nothing else. The user must stay on the
+   page.
+9. When the lightbox is closed by any other means (Esc,
+   close button, backdrop), consume the entry you pushed via
+   history.back(), so the history stack is left exactly as
+   it was. Guard against this triggering a second close.
+10. Never push more than one entry per open, even if the
+    user swipes between many images. Swiping must not create
+    history entries.
+11. Clean up the popstate listener on unmount.
+12. Apply the same behaviour to the mobile hamburger menu if
+    it doesn't already have it — Back should close the menu,
+    not leave the site. Tell me whether it needed the fix.
+
+=== TASK 3 — Calendly popup: back button + opaque backdrop ===
+The Calendly popup has the same Back-button problem, and its
+overlay is translucent so the page shows through and looks
+cheap.
+
+13. Extract the history/popstate logic from Task 2 into one
+    reusable hook (e.g. src/hooks/useBackToClose.ts) and use
+    it for the lightbox, the mobile menu AND the Calendly
+    popup. Do not copy-paste the same logic three times.
+14. Wire the Calendly popup into that hook: opening it
+    pushes an entry, Back closes the popup and keeps the
+    user on the site. Use Calendly's own close API/method to
+    dismiss it — do not just hide the element, or the widget
+    will leak state and stack duplicate iframes on reopen.
+15. Make the Calendly overlay fully opaque: override the
+    widget's own overlay element (.calendly-overlay) in
+    globals.css with the ink colour from the palette. Nothing
+    from the page behind may be visible.
+16. Make sure the site header does not sit above the popup —
+    check z-index. In the current build the header and its
+    close icon are visible through/over the popup.
+17. If the mobile menu is open when a Calendly CTA is
+    clicked, close the menu first, then open the popup. Right
+    now two close icons overlap.
+18. Respect safe-area insets so the popup and its close
+    control clear the Android gesture bar.
+19. Do not change the Calendly URL or any CTA copy in this
+    task.
+
+Show me the plan and the files you will touch before
+editing.
+
+Rules: read only the SKILL.md sections named above. Do not
+run any git command. Use only the palette / fonts / copy
+from SKILL.md. When done, append an entry to
+`CHANGELOG_work.md` (what you built, files changed, status
+`⏳ built, untested`), then run `npm run dev`; once it
+renders correctly, mark that entry `✅ verified`.
