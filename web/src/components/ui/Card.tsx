@@ -14,7 +14,7 @@ export function Card({ interactive = false, className, children }: CardProps) {
       className={cn(
         'rounded-md border border-[var(--hairline)] bg-white shadow-card',
         interactive &&
-          'group transition-colors duration-[400ms] ease-in-out hover:border-gold',
+          'group transition-colors duration-[400ms] ease-in-out hover:border-gold-deep',
         className,
       )}
     >

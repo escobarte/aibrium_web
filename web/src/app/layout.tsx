@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/MotionProvider";
+import { CalendlyProvider } from "@/components/CalendlyProvider";
 import { CalendlyEvents } from "@/components/CalendlyEvents";
 
 // Display face (H1, H2, card titles, wordmark) — EB Garamond.
@@ -68,11 +69,13 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body">
-        <MotionProvider>
-          <Header />
-          {children}
-          <Footer />
-        </MotionProvider>
+        <CalendlyProvider>
+          <MotionProvider>
+            <Header />
+            {children}
+            <Footer />
+          </MotionProvider>
+        </CalendlyProvider>
 
         <CalendlyEvents />
 

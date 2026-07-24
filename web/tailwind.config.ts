@@ -11,8 +11,15 @@ const config: Config = {
       colors: {
         ink: "#1A1A1A",
         cream: "#F7F3EC",
-        gold: "#8A6D3B",
-        "gold-hover": "#6F5730",
+        // Brand gold (official) — use on ink/dark backgrounds + button fills + wordmark.
+        gold: "#C8A96A",
+        // New gold darkened by the same HSL-lightness ratio (0.807) the old pair
+        // used — hue/sat preserved. Button hover fill.
+        "gold-hover": "#B48F43",
+        // Darker gold for gold TEXT + HAIRLINES on cream/white (C8A96A fails
+        // contrast there): SectionLabel on light, gold captions on light,
+        // featured pricing border. Same value the whole palette used before.
+        "gold-deep": "#8A6D3B",
         grey: "#666666",
       },
       fontFamily: {

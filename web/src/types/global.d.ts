@@ -10,6 +10,7 @@ declare global {
     ) => void
     Calendly?: {
       initPopupWidget: (options: { url: string }) => void
+      closePopupWidget: () => void
     }
   }
 }

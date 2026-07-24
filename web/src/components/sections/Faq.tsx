@@ -77,7 +77,7 @@ export function Faq() {
                     <Plus
                       strokeWidth={1.5}
                       className={cn(
-                        'h-5 w-5 flex-none text-gold transition-transform duration-300',
+                        'h-5 w-5 flex-none text-gold-deep transition-transform duration-300',
                         isOpen && 'rotate-45',
                       )}
                     />

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { CalendlyButton } from '@/components/ui/CalendlyButton'
+import { useBackToClose } from '@/hooks/useBackToClose'
 
 const NAV = [
   { label: 'Work', href: '#work' },
@@ -22,6 +23,9 @@ export function Header() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Android/browser Back closes the mobile menu instead of leaving the site.
+  useBackToClose(menuOpen, () => setMenuOpen(false))
 
   // Solid = after scroll OR when the mobile menu is open (needs a readable bg).
   const solid = scrolled || menuOpen
@@ -88,7 +92,13 @@ export function Header() {
             </a>
           ))}
           <div className="pt-4">
-            <CalendlyButton className="w-full">Book a Call</CalendlyButton>
+            {/* Close the menu first, then open the popup (req 17). */}
+            <CalendlyButton
+              className="w-full"
+              onClick={() => setMenuOpen(false)}
+            >
+              Book a Call
+            </CalendlyButton>
           </div>
         </nav>
       )}

@@ -27,7 +27,7 @@ export function Hero() {
           variants={stagger}
         >
           <motion.div variants={fadeInUp}>
-            <SectionLabel>Creative Studio · Fashion &amp; Lifestyle</SectionLabel>
+            <SectionLabel onDark>Creative Studio · Fashion &amp; Lifestyle</SectionLabel>
           </motion.div>
 
           <motion.h1
@@ -68,13 +68,13 @@ export function Hero() {
             className="mt-10 flex flex-col gap-5 lg:hidden"
           >
             <div>
-              <SectionLabel>Delivery</SectionLabel>
+              <SectionLabel onDark>Delivery</SectionLabel>
               <p className="mt-1.5 font-body text-[17px] leading-snug text-cream">
                 Finished visuals every Friday
               </p>
             </div>
             <div>
-              <SectionLabel>Your Model</SectionLabel>
+              <SectionLabel onDark>Your Model</SectionLabel>
               <p className="mt-1.5 font-body text-[17px] leading-snug text-cream">
                 Exclusive to your brand — never reused
               </p>
@@ -116,7 +116,7 @@ export function Hero() {
           {/* Floating info-cards (true facts only) — desktop only via parent gate */}
           <div className="pointer-events-none absolute inset-0 z-20 block">
             <div className="absolute -left-6 top-10 rounded-md bg-cream/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
-              <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+              <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold-deep">
                 Delivery
               </p>
               <p className="mt-1 font-display text-[18px] leading-tight">
@@ -129,7 +129,7 @@ export function Hero() {
                 A
               </span>
               <div>
-                <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+                <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold-deep">
                   Your model
                 </p>
                 <p className="mt-1 font-display text-[16px] leading-tight">

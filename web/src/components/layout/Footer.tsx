@@ -1,6 +1,6 @@
 'use client'
 
-import { openCalendlyPopup } from '@/lib/calendly'
+import { useCalendly } from '@/components/CalendlyProvider'
 import { trackMailtoClick } from '@/lib/analytics'
 
 const NAV = [
@@ -11,6 +11,7 @@ const NAV = [
 ]
 
 export function Footer() {
+  const { openPopup } = useCalendly()
   return (
     <footer className="bg-ink text-cream">
       <div className="mx-auto max-w-content px-6 py-16">
@@ -66,7 +67,7 @@ export function Footer() {
             ))}
             <button
               type="button"
-              onClick={openCalendlyPopup}
+              onClick={openPopup}
               className="text-left transition-colors hover:text-gold"
             >
               Book a call

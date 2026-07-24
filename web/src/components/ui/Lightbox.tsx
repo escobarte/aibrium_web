@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import type { Catalogue } from '@/lib/catalogues'
+import { useBackToClose } from '@/hooks/useBackToClose'
 
 type LightboxProps = {
   catalogue: Catalogue | null
@@ -30,6 +31,9 @@ export function Lightbox({
   const open = catalogue !== null
   const reduceMotion = useReducedMotion()
   const count = catalogue?.images.length ?? 0
+
+  // Android/browser Back closes the lightbox instead of leaving the site.
+  useBackToClose(open, onClose)
 
   // Scroll the track to a slide by index (clamped — no infinite loop, first and
   // last simply stop). Instant under reduced motion, otherwise smooth.

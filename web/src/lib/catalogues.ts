@@ -496,4 +496,4 @@ export const catalogues: Catalogue[] = [
 
 // Hero visual placeholder (light, on-brand). Swap for /hero.webp later.
 export const HERO_IMAGE =
-  'https://placehold.co/1400x1000/F7F3EC/8A6D3B.png?text=Aibrium+Hero'
+  'https://placehold.co/1400x1000/F7F3EC/C8A96A.png?text=Aibrium+Hero'

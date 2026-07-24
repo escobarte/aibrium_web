@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   return (
     <main className="bg-cream [padding-block:clamp(112px,14vw,168px)]">
       <article className="mx-auto max-w-[760px] px-6">
-        <p className="font-label text-[13px] font-medium uppercase tracking-[0.22em] text-gold">
+        <p className="font-label text-[13px] font-medium uppercase tracking-[0.22em] text-gold-deep">
           Legal
         </p>
         <h1 className="mt-4 font-display font-semibold text-ink [font-size:clamp(34px,5vw,56px)] [line-height:1.1]">
@@ -110,7 +110,7 @@ export default function PrivacyPage() {
               Questions about this policy or your data? Email us at{' '}
               <a
                 href="mailto:hello@aibrium.com"
-                className="font-medium underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+                className="font-medium underline decoration-gold-deep underline-offset-4 transition-colors hover:text-gold-deep"
               >
                 hello@aibrium.com
               </a>

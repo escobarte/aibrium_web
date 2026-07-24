@@ -49,7 +49,7 @@ export function FinalCta() {
           <a
             href="mailto:hello@aibrium.com"
             onClick={trackMailtoClick}
-            className="font-medium text-ink underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+            className="font-medium text-ink underline decoration-gold-deep underline-offset-4 transition-colors hover:text-gold-deep"
           >
             hello@aibrium.com
           </a>{' '}

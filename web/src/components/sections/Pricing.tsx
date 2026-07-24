@@ -76,7 +76,7 @@ export function Pricing() {
         {/* Featured PILOT card */}
         <motion.div
           variants={fadeInUp}
-          className="mt-12 rounded-md border border-gold bg-white p-8 shadow-card md:p-10"
+          className="mt-12 rounded-md border border-gold-deep bg-white p-8 shadow-card md:p-10"
         >
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-[62ch]">
@@ -84,7 +84,7 @@ export function Pricing() {
                 <h3 className="font-display text-[30px] font-semibold leading-none text-ink">
                   THE PILOT
                 </h3>
-                <span className="font-display text-[30px] font-semibold leading-none text-gold">
+                <span className="font-display text-[30px] font-semibold leading-none text-gold-deep">
                   $900
                 </span>
               </div>
@@ -110,7 +110,7 @@ export function Pricing() {
               className={cn(
                 'relative flex h-full flex-col rounded-md bg-white p-8 shadow-card',
                 tier.popular
-                  ? 'border border-gold lg:-translate-y-2'
+                  ? 'border border-gold-deep lg:-translate-y-2'
                   : 'border border-[var(--hairline)]',
               )}
             >

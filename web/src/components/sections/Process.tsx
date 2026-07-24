@@ -54,7 +54,7 @@ export function Process() {
           {STEPS.map((step) => (
             <motion.div key={step.number} variants={fadeInUp}>
               <Card className="h-full px-7 py-8">
-                <span className="font-display text-[40px] font-semibold leading-none text-gold">
+                <span className="font-display text-[40px] font-semibold leading-none text-gold-deep">
                   {step.number}
                 </span>
                 <h3 className="mt-5 font-display text-[22px] leading-tight text-ink">
