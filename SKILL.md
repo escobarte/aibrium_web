@@ -335,7 +335,7 @@ All copy in the blocks below is **final — paste as written**. Text in `[bracke
   - Gold small-caps label: `C R E A T I V E  S T U D I O · F A S H I O N  &  L I F E S T Y L E` (color gold, on ink).
   - `[H1]` **Your brand's own models. New visuals every week.** (Cormorant 600, cream, the page's single `<h1>`)
   - `[Sub]` Aibrium Studio casts exclusive digital models for fashion and lifestyle brands — then delivers campaign-quality on-model visuals of your products, week after week. No photoshoots, no studios, no waiting. (Inter, `#B9B2A6`)
-  - Buttons: Primary **`BOOK A 15-MIN CALL`** (Calendly popup) + Secondary `onDark` **`SEE THE WORK`** (anchors to `#work`).
+  - Buttons: Primary **`BOOK A 30-MIN CALL`** (Calendly popup) + Secondary `onDark` **`SEE THE WORK`** (anchors to `#work`). *(Call length updated 15→30 min, 2026-07-24.)*
 - **Right column (visual):** one full-bleed hero image (`/public/hero.webp` — best portfolio visual). Soft gold bloom behind it. Gentle rounded corners.
 - **Floating cards over the image** (this is the reference's composition, translated — **state true facts only, no fake counters**). Two small cards, light (cream/white) with `shadow-float`:
   - Card A — gold micro-label `DELIVERY` + `Finished visuals every Friday`.
@@ -432,7 +432,7 @@ White section. Accordion, **all closed by default**, one open at a time is fine.
 A calm closing section (cream, or a soft gold-tinted band — keep it quiet).
 
 - Gold label: `N E X T  S T E P`
-- `[H2]` **Fifteen minutes. Bring a product.**
+- `[H2]` **Thirty minutes. Bring a product.**
 - `[Body]` Book a call and we'll show you exactly what your products look like on your own model — or email us a product link and we'll send you free samples first. Either way, you judge real work, not promises.
 - **Calendly INLINE embed** here — full widget (`CalendlyInline.tsx`).
 - `[Line under widget]` Prefer email? **hello@aibrium.com** — we reply within 24 hours, Monday to Friday. `[mailto link]`
@@ -488,7 +488,7 @@ export function openCalendlyPopup() {
   return false
 }
 ```
-- **Popup:** every `BOOK A CALL`, `BOOK A 15-MIN CALL`, and `START WITH THE PILOT` button calls `openCalendlyPopup()`.
+- **Popup:** every `BOOK A CALL`, `BOOK A 30-MIN CALL`, and `START WITH THE PILOT` button opens the Calendly popup (via `useCalendly().openPopup`).
 - **Inline (Block 9):** render `<div className="calendly-inline-widget" data-url={CALENDLY_URL} style={{ minWidth: 320, height: 680 }} />`. The widget script auto-initializes inline widgets.
 - The real URL is committed as the literal default in `src/lib/calendly.ts` — no `.env.local` needed for the site to work. To point at a different Calendly (e.g. staging), optionally set `NEXT_PUBLIC_CALENDLY_URL` in the environment (or Vercel env vars) to override. Never blocks render — script is `lazyOnload`.
 - **No contact form anywhere.** Calendly + mailto only.

@@ -24,7 +24,7 @@ export function FinalCta() {
           variants={fadeInUp}
           className="mt-6 font-display font-semibold text-ink [font-size:clamp(30px,4vw,52px)] [line-height:1.1]"
         >
-          Fifteen minutes. Bring a product.
+          Thirty minutes. Bring a product.
         </motion.h2>
 
         <motion.p

@@ -115,11 +115,15 @@ export function Lightbox({
     return () => document.removeEventListener('keydown', onKey)
   }, [open, onClose, step])
 
-  // Lock body scroll while open and restore the exact scroll position on close.
+  // Lock body scroll while open and restore the EXACT scroll position on close
+  // (Back / X / Esc all funnel through this cleanup, so they behave identically).
   useEffect(() => {
     if (!open) return
     const body = document.body
     const scrollY = window.scrollY
+    // Compensate for the scrollbar that disappears when we lock, so desktop
+    // content doesn't shift sideways when the lightbox opens (no layout shift).
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
     const prev = {
       position: body.style.position,
       top: body.style.top,
@@ -127,6 +131,7 @@ export function Lightbox({
       right: body.style.right,
       width: body.style.width,
       overflow: body.style.overflow,
+      paddingRight: body.style.paddingRight,
     }
     body.style.position = 'fixed'
     body.style.top = `-${scrollY}px`
@@ -134,6 +139,7 @@ export function Lightbox({
     body.style.right = '0'
     body.style.width = '100%'
     body.style.overflow = 'hidden'
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`
     return () => {
       body.style.position = prev.position
       body.style.top = prev.top
@@ -141,7 +147,10 @@ export function Lightbox({
       body.style.right = prev.right
       body.style.width = prev.width
       body.style.overflow = prev.overflow
-      window.scrollTo(0, scrollY)
+      body.style.paddingRight = prev.paddingRight
+      // Instant, never smooth — an animated scroll on close is worse than the
+      // jump. Explicit 'instant' overrides the global html{scroll-behavior:smooth}.
+      window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' })
     }
   }, [open])
 

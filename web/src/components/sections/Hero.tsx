@@ -51,7 +51,7 @@ export function Hero() {
             variants={fadeInUp}
             className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
-            <CalendlyButton size="lg">Book a 15-min Call</CalendlyButton>
+            <CalendlyButton size="lg">Book a 30-min Call</CalendlyButton>
             <Button variant="secondary" onDark size="lg" href="#work">
               See the Work
             </Button>
