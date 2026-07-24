@@ -1,0 +1,84 @@
+## Prompt 1
+Read SKILL.md sections: "Working rules", Block 2 (Hero),
+"Design system", "Animations".
+
+Note: Block 2 currently specifies "Mobile: image above
+text, floating cards simplified/hidden". I am overriding
+that on purpose — this is an approved deviation, not a
+mistake.
+
+Change in src/components/sections/Hero.tsx:
+1. Hide the hero visual block (the image/placeholder plus
+   both floating info-cards) on screens below lg. Desktop
+   must stay pixel-identical to now — verify the two-column
+   split doesn't collapse or stretch the text column.
+2. The two facts currently living in the floating cards
+   ("Finished visuals every Friday" and "Exclusive to your
+   brand — never reused") must NOT disappear on mobile.
+   Render them on mobile only, as a compact block under the
+   CTA buttons, using existing typography tokens —
+   SectionLabel-style gold small-caps for the label, body
+   text for the value. No new colors, no new components
+   unless one is genuinely needed.
+3. Structure it so that when the placeholder is later
+   replaced by a real image, the visual can be brought back
+   on mobile BELOW the text (not above) by changing a class,
+   without rewriting the markup.
+4. Make sure the hidden block does not cause mobile browsers
+   to download the hero image needlessly.
+5. Keep the on-load stagger working on both breakpoints and
+   keep prefers-reduced-motion respected.
+6. Update Block 2 in SKILL.md to reflect the new mobile
+   behaviour, so later phases don't revert it.
+
+Show me what you plan to change and in which files before
+editing.
+
+Rules: read only the SKILL.md sections named above. Do not
+run any git command. Use only the palette / fonts / copy
+from SKILL.md. When done, append an entry to
+`CHANGELOG_work.md` (what you built, files changed, status
+`⏳ built, untested`), then run `npm run dev`; once it
+renders correctly, mark that entry `✅ verified`.
+
+## Prompt 2
+Read SKILL.md sections: "Working rules", Block 4 (Work /
+portfolio), "Animations", "Design system".
+
+The lightbox currently only changes images via the arrow
+buttons. Add touch swipe navigation on top of that.
+
+Requirements:
+1. In src/components/ui/Lightbox.tsx, add horizontal swipe
+   gestures: swipe left → next image, swipe right →
+   previous. Use Framer Motion drag (it's already a
+   dependency) — do not add a new library.
+2. Require a sensible threshold (distance or velocity) so a
+   small accidental drag doesn't flip the image, and the
+   image snaps back if the threshold isn't met.
+3. Vertical swipe down should close the lightbox. Make sure
+   this doesn't fight the horizontal gesture.
+4. Keep everything that already works: arrow buttons stay
+   visible and functional on all breakpoints, Esc closes,
+   left/right arrow keys navigate. Add keyboard arrows if
+   they aren't wired yet.
+5. Do not loop infinitely unless it already does — at the
+   first and last image the drag should resist and snap
+   back.
+6. Prevent the page behind the lightbox from scrolling
+   while dragging on touch devices.
+7. All motion must be disabled or reduced under
+   prefers-reduced-motion; swiping must still work, just
+   without the animation.
+8. No visual changes — no new buttons, dots, hints or
+   counters unless one already exists.
+
+Show me what you plan to change and in which files before
+editing.
+
+Rules: read only the SKILL.md sections named above. Do not
+run any git command. Use only the palette / fonts / copy
+from SKILL.md. When done, append an entry to
+`CHANGELOG_work.md` (what you built, files changed, status
+`⏳ built, untested`), then run `npm run dev`; once it
+renders correctly, mark that entry `✅ verified`.
