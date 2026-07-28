@@ -494,6 +494,6 @@ export const catalogues: Catalogue[] = [
   },
 ]
 
-// Hero visual placeholder (light, on-brand). Swap for /hero.webp later.
-export const HERO_IMAGE =
-  'https://placehold.co/1400x1000/F7F3EC/C8A96A.png?text=Aibrium+Hero'
+// Hero visual — FINAL. The Aibrium logo on the light hero card, not a photo.
+// Black/gold artwork, so it must sit on the light card, never on the ink bg.
+export const HERO_LOGO = '/hero-logo.png'

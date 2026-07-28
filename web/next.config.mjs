@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'placehold.co' },
-    ],
-  },
-};
+// All images are local under /public — no remote hosts, so no remotePatterns.
+const nextConfig = {};
 
 export default nextConfig;

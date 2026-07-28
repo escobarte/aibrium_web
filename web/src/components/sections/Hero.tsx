@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { HERO_IMAGE } from '@/lib/catalogues'
+import { HERO_LOGO } from '@/lib/catalogues'
 import { fadeInUp, stagger } from '@/lib/motion'
 import { Button } from '@/components/ui/Button'
 import { CalendlyButton } from '@/components/ui/CalendlyButton'
@@ -83,11 +83,11 @@ export function Hero() {
         </motion.div>
 
         {/*
-          Visual — second in DOM. Hidden below lg (image + both floating cards),
-          so mobile never downloads the hero image (display:none + no `priority`
-          keeps it from being fetched/preloaded). To later re-enable it on mobile
-          BELOW the text, change `hidden lg:block` → `block` here — no markup
-          rewrite needed, because it already follows the text in source order.
+          Visual — second in DOM, and desktop-only: hidden below lg (card, logo
+          and both floating cards), so mobile shows no card at all and the
+          section starts straight with the text. It already follows the text in
+          source order, so re-enabling it on mobile BELOW the text would be
+          `hidden lg:block` → `block` — no markup rewrite.
         */}
         <div className="relative hidden lg:block">
           {/* Soft gold bloom behind the image */}
@@ -99,17 +99,23 @@ export function Hero() {
                 'radial-gradient(closest-side, rgba(138,109,59,0.28), transparent 70%)',
             }}
           />
-          <div className="relative z-10 overflow-hidden rounded-xl">
+          {/*
+            The light card. Its cream fill + 7/5 ratio are what the placeholder
+            image used to supply, so the panel keeps the exact footprint the
+            floating cards below are positioned against. The logo artwork is
+            black + gold — it only reads on this light card, never on the ink bg.
+          */}
+          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream p-12 lg:p-16">
             <Image
-              src={HERO_IMAGE}
-              alt="On-model campaign visual produced by Aibrium Studio"
-              width={1400}
+              src={HERO_LOGO}
+              alt="Aibrium Studio"
+              width={977}
               height={1000}
-              // No `priority`: the visual is display:none below lg, so lazy
-              // loading keeps mobile from fetching the hero image needlessly.
-              // TODO: remove unoptimized once real /public images replace placeholders.
-              unoptimized
-              className="h-auto w-full object-cover"
+              // The hero mark: load it immediately, don't lazy it.
+              priority
+              // Capped by the card's padded box so the mark stays centred with
+              // clear air around it — it must not fill or touch the panel.
+              className="h-auto max-h-full w-auto max-w-full object-contain"
             />
           </div>
 
