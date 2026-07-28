@@ -495,6 +495,13 @@ export const catalogues: Catalogue[] = [
 ]
 
 // Hero visual — FINAL. The Aibrium logo on the light hero card, not a photo.
-// Transparent (RGBA) so the artwork sits straight on the cream card with no
-// white box behind it. Black/gold artwork — light card only, never the ink bg.
-export const HERO_LOGO = '/hero-logo-transparent.png'
+// The HORIZONTAL lockup (logomark left, AIBRIUM / STUDIO right), transparent
+// (RGBA) so the artwork sits straight on the cream card with no box behind it.
+// Black/gold artwork — light card only, never the ink bg.
+//
+// This is hero-logo-transparent.png losslessly cropped to its content bbox
+// (x 525-3735, y 1327-2838 of the 4167² canvas) → 3211×1512, aspect 2.1237.
+// The designer's file is 97.4% transparent margin; untrimmed, that dead space
+// counts as layout box and the lockup renders tiny. Keep this file tight — if
+// the logo is ever redrawn, re-trim rather than pointing at the padded canvas.
+export const HERO_LOGO = '/hero-logo-wide.png'

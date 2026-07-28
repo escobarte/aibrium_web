@@ -106,25 +106,28 @@ export function Hero() {
             (RGBA), so the black + gold artwork sits directly on this cream fill
             — no box behind it. Light card only, never the ink bg.
 
-            p-28 is what keeps the mark clear of the two floating cards. Those
-            cards have FIXED heights (75px / 72.5px, from py-4 + their line
-            heights) at a fixed top-10 / bottom-10 inset, while this card is
-            fluid (456px→544px wide across lg→1200px+). So the band between them
-            is only `cardH - 227`. Padding in the same fixed px units caps the
-            logo box at `cardH - 224` and holds across the whole desktop range:
-            measured off the file's alpha channel, the artwork clears card A by
-            13px and card B by 19px at lg, and by 23px / 32px at 1200px+.
+            p-32 is what keeps the horizontal lockup clear of the two floating
+            cards. Those cards have FIXED heights (75px / 72.5px, from py-4 +
+            their line heights) at a fixed top-10 / bottom-10 inset, while this
+            card is fluid (456px→544px wide across lg→1200px+), so the clear
+            band between them is only `cardH - 227`. Because the lockup is wide
+            and the cards sit at opposite corners, staying inside that band
+            clears BOTH of them at any width. Padding in the same fixed px units
+            as the cards' fixed heights caps the logo at `cardH - 256` tall and
+            holds across the whole desktop range: 148.0×69.7 at lg, 281.6×132.6
+            at 1200px+, each clearing card A by 13px and card B by 15.5px.
             Enlarging the mark means moving the floating cards out of the band —
             not reducing this padding.
           */}
-          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream p-28">
+          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream p-32">
             <Image
               src={HERO_LOGO}
               alt="Aibrium Studio"
-              // Square source (4167×4167); 800×800 keeps that ratio, so the box
-              // is reserved up front and nothing shifts.
-              width={800}
-              height={800}
+              // 850×400 = 2.125:1, the trimmed file's real 3211×1512 artwork
+              // ratio (2.1237) — NOT 1:1. Reserves the correct box up front, so
+              // nothing shifts, and keeps the srcset candidates sane.
+              width={850}
+              height={400}
               // The hero mark: load it immediately, don't lazy it.
               priority
               // Capped by the padded box above, centred by the flex container.
