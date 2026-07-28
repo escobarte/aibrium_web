@@ -495,5 +495,6 @@ export const catalogues: Catalogue[] = [
 ]
 
 // Hero visual — FINAL. The Aibrium logo on the light hero card, not a photo.
-// Black/gold artwork, so it must sit on the light card, never on the ink bg.
-export const HERO_LOGO = '/hero-logo.png'
+// Transparent (RGBA) so the artwork sits straight on the cream card with no
+// white box behind it. Black/gold artwork — light card only, never the ink bg.
+export const HERO_LOGO = '/hero-logo-transparent.png'

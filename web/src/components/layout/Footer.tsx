@@ -77,11 +77,7 @@ export function Footer() {
 
         {/* Bottom legal line */}
         <div className="mt-14 border-t border-white/10 pt-8 text-[13px] text-[#B9B2A6]">
-          © 2026 «Mining capital LLC» SRL, t/a Aibrium Studio · Chișinău,
-          Republic of Moldova ·{' '}
-          <a href="/privacy" className="transition-colors hover:text-gold">
-            Privacy Policy
-          </a>
+          © 2026 Aibrium Studio
         </div>
       </div>
     </footer>

@@ -102,19 +102,32 @@ export function Hero() {
           {/*
             The light card. Its cream fill + 7/5 ratio are what the placeholder
             image used to supply, so the panel keeps the exact footprint the
-            floating cards below are positioned against. The logo artwork is
-            black + gold — it only reads on this light card, never on the ink bg.
+            floating cards below are positioned against. The logo is transparent
+            (RGBA), so the black + gold artwork sits directly on this cream fill
+            — no box behind it. Light card only, never the ink bg.
+
+            p-28 is what keeps the mark clear of the two floating cards. Those
+            cards have FIXED heights (75px / 72.5px, from py-4 + their line
+            heights) at a fixed top-10 / bottom-10 inset, while this card is
+            fluid (456px→544px wide across lg→1200px+). So the band between them
+            is only `cardH - 227`. Padding in the same fixed px units caps the
+            logo box at `cardH - 224` and holds across the whole desktop range:
+            measured off the file's alpha channel, the artwork clears card A by
+            13px and card B by 19px at lg, and by 23px / 32px at 1200px+.
+            Enlarging the mark means moving the floating cards out of the band —
+            not reducing this padding.
           */}
-          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream p-12 lg:p-16">
+          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream p-28">
             <Image
               src={HERO_LOGO}
               alt="Aibrium Studio"
-              width={977}
-              height={1000}
+              // Square source (4167×4167); 800×800 keeps that ratio, so the box
+              // is reserved up front and nothing shifts.
+              width={800}
+              height={800}
               // The hero mark: load it immediately, don't lazy it.
               priority
-              // Capped by the card's padded box so the mark stays centred with
-              // clear air around it — it must not fill or touch the panel.
+              // Capped by the padded box above, centred by the flex container.
               className="h-auto max-h-full w-auto max-w-full object-contain"
             />
           </div>
