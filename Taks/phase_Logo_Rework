@@ -1,0 +1,42 @@
+Read SKILL.md sections: "Working rules", the Footer block,
+"Content facts".
+
+Simplify the footer copyright line.
+
+Current text:
+  © 2026 «Mining capital LLC» SRL, t/a Aibrium Studio ·
+  Chișinău, Republic of Moldova · Privacy Policy
+
+Replace it with exactly:
+  © 2026 Aibrium Studio
+
+1. Remove the legal entity name, the "t/a" trading-as
+   phrase, the city / country, and the Privacy Policy item —
+   leave only "© 2026 Aibrium Studio".
+2. If removing those parts leaves empty separators (the "·"
+   dots), stray links, or an empty wrapper element, remove
+   those too so nothing dangles.
+3. If the Privacy Policy link pointed to a real page or
+   route, tell me what it was before you delete it — do not
+   remove an actual page, just the footer link. If it was
+   only a placeholder (# or empty), remove it silently.
+4. Keep the footer's layout, alignment and styling
+   otherwise unchanged — this is a copy edit, not a
+   redesign.
+5. Grep for the removed strings ("Mining capital", "SRL",
+   "Chișinău", "Republic of Moldova") anywhere else in the
+   codebase and report if they appear outside the footer —
+   e.g. in metadata, structured data, or SKILL.md. Do not
+   change those other spots without telling me.
+6. Update the Footer copy in SKILL.md to the new single
+   line so later phases don't restore the old text.
+
+Show me the plan and the files you will touch before
+editing.
+
+Rules: read only the SKILL.md sections named above. Do not
+run any git command. Use only the palette / fonts / copy
+from SKILL.md. When done, append an entry to
+`CHANGELOG_work.md` (what you built, files changed, status
+`⏳ built, untested`), then run `npm run dev`; once it
+renders correctly, mark that entry `✅ verified`.

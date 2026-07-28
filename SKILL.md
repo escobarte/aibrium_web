@@ -174,18 +174,18 @@ theme: {
 
 **Three-role type system** *(updated 2026-07-24 — brand identity alignment)*. Each role maps to a Tailwind token; never scatter raw font names across components.
 
-- **Display face (`font-display`):** **EB Garamond**, weight 500–600. Use for H1, H2, card titles, wordmark. Generous, calm. *(Replaced Cormorant Garamond — same weights, same type scale; a face swap, not a redesign. EB Garamond runs slightly wider, so the hero H1 carries `letter-spacing: -0.01em`.)*
+- **Display face (`font-display`):** **Playfair Display**, weight 500–600. Use for H1, H2, card titles, wordmark. High-contrast, editorial. *(Replaced EB Garamond 2026-07-28, which had replaced Cormorant Garamond — same weights, same type scale each time; a face swap, not a redesign. Swap it through the `font-display` **token** in `tailwind.config.ts`, never by editing font names in components.) Playfair sets wider and has thinner hairlines, so the hero H1 carries `letter-spacing: -0.02em` and `line-height: 1.08` — see the table below.*
 - **Label face (`font-label`):** **Montserrat**, weights 500 & 600 **only**. Geometric sans, used **exclusively** for small uppercase letter-spaced micro-copy: `SectionLabel`, button labels, nav items (header + footer), the lightbox counter, the pricing "Most Popular" tag, and the hero floating-card micro-labels. **Never** in body text.
 - **Body face (`font-body`):** **Inter**, weight 400 (500 for emphasis). 17–18px body, line-height 1.6. All paragraphs, descriptions, captions.
 
-All three load via `next/font/google` in `layout.tsx` (`display: 'swap'`, latin subset), exposed as CSS variables `--font-eb-garamond` / `--font-montserrat` / `--font-inter`.
+All three load via `next/font/google` in `layout.tsx` (`display: 'swap'`, latin subset), exposed as CSS variables `--font-playfair` / `--font-montserrat` / `--font-inter`.
 
 | Element | Face / weight | Size | Notes |
 |---|---|---|---|
-| Hero H1 | EB Garamond 600 (`font-display`) | `clamp(44px, 6vw, 84px)` | line-height 1.05, `letter-spacing: -0.01em`, the only `<h1>` on the page |
-| Section H2 | EB Garamond 600 (`font-display`) | `clamp(30px, 4vw, 52px)` | line-height 1.1 |
+| Hero H1 | Playfair Display 600 (`font-display`) | `clamp(44px, 6vw, 84px)` | line-height **1.08**, `letter-spacing: **-0.02em**`, the only `<h1>` on the page. *(Loosened from 1.05 / -0.01em for Playfair: its cap+descender span is ~0.98em vs EB Garamond's ~0.93em, so 1.05 left ~40% less air between wrapped lines — and this H1 wraps to 2 lines at 1440px, 3 at 390px.)* |
+| Section H2 | Playfair Display 600 (`font-display`) | `clamp(30px, 4vw, 52px)` | line-height 1.1 (unchanged — ~0.12em clearance is comfortable at this size) |
 | Gold small-caps label | Montserrat 500 (`font-label`) | 12–13px | `text-transform: uppercase`, `letter-spacing: 0.22em`, color gold. Sits above every section H2. |
-| Card / step title | EB Garamond 600 (`font-display`) | 22–26px | |
+| Card / step title | Playfair Display 600 (`font-display`) | 22–26px | |
 | Body | Inter 400 (`font-body`) | 17–18px | line-height 1.6, max ~68ch |
 | Caption / meta | Inter 400 (`font-body`) | 14px | color grey |
 | Button label | Montserrat 500 (`font-label`) | 13–14px | uppercase, `letter-spacing: 0.08em` |
@@ -285,16 +285,21 @@ transition: 0.4s ease
 
 1. **Fonts** via `next/font/google`:
 ```tsx
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Playfair_Display, Montserrat, Inter } from 'next/font/google'
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'], weight: ['500', '600'], variable: '--font-cormorant', display: 'swap',
+const playfair = Playfair_Display({
+  subsets: ['latin'], weight: ['500', '600'], variable: '--font-playfair', display: 'swap',
+})
+const montserrat = Montserrat({
+  subsets: ['latin'], weight: ['500', '600'], variable: '--font-montserrat', display: 'swap',
 })
 const inter = Inter({
   subsets: ['latin'], weight: ['400', '500'], variable: '--font-inter', display: 'swap',
 })
-// apply `${cormorant.variable} ${inter.variable}` on <html>, `font-body` on <body>
+// apply `${playfair.variable} ${montserrat.variable} ${inter.variable}` on <html>,
+// `font-body` on <body>
 ```
+*(Updated 2026-07-28 — three faces, and the display face is Playfair Display. Earlier revisions of this file showed Cormorant Garamond, then EB Garamond; both are gone.)*
 2. `<Header />` at top (fixed/sticky), `{children}`, `<Footer />` at bottom.
 3. **Calendly widget script** — deferred, so it never blocks render:
 ```tsx
@@ -333,7 +338,7 @@ All copy in the blocks below is **final — paste as written**. Text in `[bracke
 - Background: ink `#1A1A1A` with the warm radial + gold bloom behind the image (see texture rules). Min height ~`88vh` desktop; comfortable auto height on mobile.
 - **Left column (text):**
   - Gold small-caps label: `C R E A T I V E  S T U D I O · F A S H I O N  &  L I F E S T Y L E` (color gold, on ink).
-  - `[H1]` **Your brand's own models. New visuals every week.** (Cormorant 600, cream, the page's single `<h1>`)
+  - `[H1]` **Your brand's own models. New visuals every week.** (Playfair Display 600 via `font-display`, cream, the page's single `<h1>`)
   - `[Sub]` Aibrium Studio casts exclusive digital models for fashion and lifestyle brands — then delivers campaign-quality on-model visuals of your products, week after week. No photoshoots, no studios, no waiting. (Inter, `#B9B2A6`)
   - Buttons: Primary **`BOOK A 30-MIN CALL`** (Calendly popup) + Secondary `onDark` **`SEE THE WORK`** (anchors to `#work`). *(Call length updated 15→30 min, 2026-07-24.)*
 - **Right column (visual):** **FINAL — 2026-07-28. The hero visual is the Aibrium logo, not a photograph. There is no hero photo and none is coming; do not reintroduce a placeholder or a `hero.webp` image here.** A light **cream rounded card** (`bg-cream`, `rounded-xl`, `aspect-[7/5]`) with the **horizontal logo lockup** (logomark left, `AIBRIUM` / `STUDIO` right) centred inside it, **desktop only**. Use `/public/hero-logo-wide.png` — `next/image`, `width={850} height={400}` (**2.125:1, the real artwork ratio — never 1:1**), `priority`, alt `Aibrium Studio`, `object-contain`, even `p-32` padding. There must be **no background, fill or wrapper behind the logo** — the transparent artwork sits straight on the cream card. It is black + gold, so it **must** stay on this light card — never place it directly on the ink background. Soft gold bloom behind the card. *(Do not use `hero-logo.png` — no alpha, it paints its own white rectangle over the cream. Do not use `hero-logo-transparent_old.png` — the superseded vertical lockup, which collided with the floating cards.)*
@@ -342,7 +347,8 @@ All copy in the blocks below is **final — paste as written**. Text in `[bracke
 - **Floating cards over the image** (this is the reference's composition, translated — **state true facts only, no fake counters**). Two small cards, light (cream/white) with `shadow-float`:
   - Card A — gold micro-label `DELIVERY` + `Finished visuals every Friday`.
   - Card B — gold micro-label `YOUR MODEL` + `Exclusive to your brand — never reused` + a small initial/avatar dot.
-- **Mobile / tablet (below `lg`):** *(approved deviation — 2026-07-23; reaffirmed 2026-07-27)* the entire hero **visual block is hidden** below `lg` — cream card, logo **and** both floating cards. On mobile there is **no card at all**: the section starts straight with the text. The two-column split happens at `lg`, not `md`. The two facts from the floating cards must **not** disappear — render them as a compact block **under the CTA buttons**, using existing tokens (gold small-caps `SectionLabel` label + body-text value): `DELIVERY → Finished visuals every Friday` and `YOUR MODEL → Exclusive to your brand — never reused`. The visual block is placed **after** the text in source order, so it could later be brought back on mobile **below** the text by changing `hidden lg:block` → `block` — no markup rewrite. *(The logo carries `priority` as the hero mark, so unlike the old photo it is preloaded on mobile too even though it is not displayed.)* Desktop (`lg+`) is unchanged: text left, visual right, floating cards over the card.
+- **Mobile / tablet (below `lg`) — ⚠️ TRIAL, 2026-07-28:** the hero visual is currently **shown on mobile**, placed **above** the H1 (visual first, then heading / sub / CTAs), with the cream card, the horizontal logo **and** both floating cards — same content as desktop, scaled down (`px-[8%] py-[23.6%]` on the card, shrunken floating cards, all restored to desktop values at `lg:`). **This is a reversible visual trial, not a settled decision.** Two lines control it, both marked `TRIAL` in `Hero.tsx`: the visual block's `relative order-first block lg:order-none` (was `relative hidden lg:block`) and the mobile facts block's `hidden` (was `mt-10 flex flex-col gap-5 lg:hidden`). Restore both to end the trial. The paragraph below describes the **pre-trial** desktop-only behaviour and is what reverting returns you to — keep it.
+- **Mobile / tablet (below `lg`) — pre-trial behaviour:** *(approved deviation — 2026-07-23; reaffirmed 2026-07-27)* the entire hero **visual block is hidden** below `lg` — cream card, logo **and** both floating cards. On mobile there is **no card at all**: the section starts straight with the text. The two-column split happens at `lg`, not `md`. The two facts from the floating cards must **not** disappear — render them as a compact block **under the CTA buttons**, using existing tokens (gold small-caps `SectionLabel` label + body-text value): `DELIVERY → Finished visuals every Friday` and `YOUR MODEL → Exclusive to your brand — never reused`. The visual block is placed **after** the text in source order, so it could later be brought back on mobile **below** the text by changing `hidden lg:block` → `block` — no markup rewrite. *(The logo carries `priority` as the hero mark, so unlike the old photo it is preloaded on mobile too even though it is not displayed.)* Desktop (`lg+`) is unchanged: text left, visual right, floating cards over the card.
 - **On-load animation:** H1 + sub + buttons stagger fade-up (0.08s stagger). Restrained. Nothing else on the hero animates on load.
 
 ### BLOCK 3 — The Problem → The Fix — `ProblemFix.tsx`

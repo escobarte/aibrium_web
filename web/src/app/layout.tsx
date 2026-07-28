@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Montserrat, Inter } from "next/font/google";
+import { Playfair_Display, Montserrat, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -8,11 +8,11 @@ import { MotionProvider } from "@/components/MotionProvider";
 import { CalendlyProvider } from "@/components/CalendlyProvider";
 import { CalendlyEvents } from "@/components/CalendlyEvents";
 
-// Display face (H1, H2, card titles, wordmark) — EB Garamond.
-const ebGaramond = EB_Garamond({
+// Display face (H1, H2, card titles, wordmark) — Playfair Display.
+const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["500", "600"],
-  variable: "--font-eb-garamond",
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ebGaramond.variable} ${montserrat.variable} ${inter.variable}`}
+      className={`${playfair.variable} ${montserrat.variable} ${inter.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://assets.calendly.com" />

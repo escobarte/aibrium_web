@@ -24,7 +24,7 @@ const config: Config = {
       },
       fontFamily: {
         // Display face — headings, card titles, wordmark.
-        display: ["var(--font-eb-garamond)", "Georgia", "serif"],
+        display: ["var(--font-playfair)", "Georgia", "serif"],
         // Label face — small uppercase letter-spaced micro-copy + nav items.
         label: ["var(--font-montserrat)", "system-ui", "sans-serif"],
         // Body face — paragraphs, descriptions, captions.
