@@ -65,18 +65,13 @@ export function Hero() {
 
           {/*
             Mobile/tablet facts — the two facts that live in the floating cards
-            on desktop. This block exists only as a stand-in for a HIDDEN visual.
-
-            TRIAL 2026-07-28 (pair with the visual block below): the visual now
-            shows on mobile WITH both floating cards, so this block would print
-            DELIVERY / YOUR MODEL a second time. Hidden for the duration of the
-            trial. To end the trial, restore `mt-10 flex flex-col gap-5 lg:hidden`
-            here and `hidden lg:block` on the visual — those two lines are the
-            whole change.
+            on desktop. Rendered below the CTAs on screens < lg (where the visual
+            block is hidden) so the facts never disappear. lg:hidden because the
+            floating cards carry them on desktop.
           */}
           <motion.div
             variants={fadeInUp}
-            className="hidden"
+            className="mt-10 flex flex-col gap-5 lg:hidden"
           >
             <div>
               <SectionLabel onDark>Delivery</SectionLabel>
@@ -94,21 +89,16 @@ export function Hero() {
         </motion.div>
 
         {/*
-          Visual — second in DOM so desktop gets text-left / visual-right from
-          natural grid flow.
+          Visual — second in DOM, and desktop-only: hidden below lg (card, logo
+          and both floating cards), so mobile shows no card at all and the
+          section starts straight with the text. It already follows the text in
+          source order, so re-enabling it on mobile BELOW the text would be
+          `hidden lg:block` → `block` — no markup rewrite.
 
-          TRIAL 2026-07-28 — THIS LINE IS THE SWITCH. Was `relative hidden
-          lg:block` (desktop-only). Now shown at every width, and `order-first`
-          lifts it ABOVE the heading on mobile; `lg:order-none` hands the order
-          back to DOM flow at lg, so desktop is byte-identical to before.
-          To end the trial: restore `relative hidden lg:block` here and
-          `mt-10 flex flex-col gap-5 lg:hidden` on the facts block above.
-
-          Everything below sizes itself off the card, and every mobile value is
-          overridden at `lg:` with the pre-trial desktop value — so the trial
-          cannot touch desktop.
+          (A trial on 2026-07-28 showed it on mobile above the heading; reverted
+          the same day. Mobile is deliberately text-only.)
         */}
-        <div className="relative order-first block lg:order-none">
+        <div className="relative hidden lg:block">
           {/* Soft gold bloom behind the image */}
           <div
             aria-hidden
@@ -125,32 +115,25 @@ export function Hero() {
             (RGBA), so the black + gold artwork sits directly on this cream fill
             — no box behind it. Light card only, never the ink bg.
 
-            lg:p-32 is what keeps the horizontal lockup clear of the two
-            floating cards on DESKTOP. Those cards have FIXED heights (75px /
-            72.5px, from py-4 + their line heights) at a fixed top-10 / bottom-10
-            inset, while this card is fluid (456px→544px wide across lg→1200px+),
-            so the clear band between them is only `cardH - 227`. Because the
-            lockup is wide and the cards sit at opposite corners, staying inside
-            that band clears BOTH of them at any width. Padding in the same fixed
-            px units as the cards' fixed heights caps the logo at `cardH - 256`
-            tall and holds across the whole desktop range: 148.0×69.7 at lg,
-            281.6×132.6 at 1200px+, each clearing card A by 13px and card B by
-            15.5px. Enlarging the mark means moving the floating cards out of the
-            band — not reducing this padding.
+            p-32 is what keeps the horizontal lockup clear of the two floating
+            cards. Those cards have FIXED heights (75px / 72.5px, from py-4 +
+            their line heights) at a fixed top-10 / bottom-10 inset, while this
+            card is fluid (456px→544px wide across lg→1200px+), so the clear
+            band between them is only `cardH - 227`. Because the lockup is wide
+            and the cards sit at opposite corners, staying inside that band
+            clears BOTH of them at any width. Padding in the same fixed px units
+            as the cards' fixed heights caps the logo at `cardH - 256` tall and
+            holds across the whole desktop range: 148.0×69.7 at lg, 281.6×132.6
+            at 1200px+, each clearing card A by 13px and card B by 15.5px.
+            Enlarging the mark means moving the floating cards out of the band —
+            not reducing this padding.
 
-            BELOW lg (trial), p-32 cannot apply: at 390px the card is only
-            342×244.3, so 128px padding would give the logo a NEGATIVE box.
-            px-[8%] py-[23.6%] instead. Padding percentages resolve against the
-            card's WIDTH, and card height = width/1.4 (aspect-[7/5]), so 23.6%
-            of width == 33% of height — the padding scales WITH the card and the
-            lockup holds a constant ~51% of card width, the same proportion as
-            desktop. At 390px: logo 176.1×82.9 at y 80.7→163.6, clearing the
-            shrunken card A (ends 71.3) by 9.5px and card B (starts 174.3) by
-            10.7px. At 768px: logo 370.6×174.5, clearances 97px / 98px — the
-            floating cards keep their fixed heights while the card grows, so the
-            margins only widen from here.
+            This card only ever renders at lg+, so p-32 needs no mobile
+            counterpart. (The 2026-07-28 mobile trial needed px-[8%] py-[23.6%]
+            here, because at 390px the card is 342×244.3 and 128px padding gives
+            the logo a NEGATIVE box. Reverted with the trial.)
           */}
-          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream px-[8%] py-[23.6%] lg:p-32">
+          <div className="relative z-10 flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl bg-cream p-32">
             <Image
               src={HERO_LOGO}
               alt="Aibrium Studio"
@@ -166,36 +149,26 @@ export function Hero() {
             />
           </div>
 
-          {/*
-            Floating info-cards (true facts only). TRIAL 2026-07-28: these now
-            show on mobile too. Every base value is the shrunken mobile one and
-            every `lg:` value is the untouched desktop one, so desktop renders
-            exactly as before. Mobile sizes are chosen to keep both cards single
-            -line: wrapping would make them taller and squeeze the clear band the
-            logo sits in. Widths at 390px come to ~201px (card A, from x 16) and
-            ~274px (card B, right edge x 374) inside a 390px viewport — and the
-            section's own overflow-hidden makes a sideways scroll impossible even
-            if a glyph estimate is off.
-          */}
+          {/* Floating info-cards (true facts only) — desktop only via parent gate */}
           <div className="pointer-events-none absolute inset-0 z-20 block">
-            <div className="absolute -left-2 top-4 rounded-md bg-cream/95 px-3 py-2.5 text-ink shadow-float backdrop-blur-sm lg:-left-6 lg:top-10 lg:px-5 lg:py-4">
-              <p className="font-label text-[10px] font-medium uppercase tracking-[0.22em] text-gold-deep lg:text-[11px]">
+            <div className="absolute -left-6 top-10 rounded-md bg-cream/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
+              <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold-deep">
                 Delivery
               </p>
-              <p className="mt-1 font-display text-[13px] leading-tight lg:text-[18px]">
+              <p className="mt-1 font-display text-[18px] leading-tight">
                 Finished visuals every Friday
               </p>
             </div>
 
-            <div className="absolute -right-2 bottom-4 flex items-center gap-2 rounded-md bg-white/95 px-3 py-2.5 text-ink shadow-float backdrop-blur-sm lg:-right-4 lg:bottom-10 lg:gap-3 lg:px-5 lg:py-4">
-              <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-ink font-display text-[13px] text-cream lg:h-9 lg:w-9 lg:text-[15px]">
+            <div className="absolute -right-4 bottom-10 flex items-center gap-3 rounded-md bg-white/95 px-5 py-4 text-ink shadow-float backdrop-blur-sm">
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-ink font-display text-[15px] text-cream">
                 A
               </span>
               <div>
-                <p className="font-label text-[10px] font-medium uppercase tracking-[0.22em] text-gold-deep lg:text-[11px]">
+                <p className="font-label text-[11px] font-medium uppercase tracking-[0.22em] text-gold-deep">
                   Your model
                 </p>
-                <p className="mt-1 font-display text-[12px] leading-tight lg:text-[16px]">
+                <p className="mt-1 font-display text-[16px] leading-tight">
                   Exclusive to your brand — never reused
                 </p>
               </div>
